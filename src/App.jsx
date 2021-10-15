@@ -3,26 +3,39 @@ import Greeter from "./components/Greeter"
 
 const App = () => {
 
-    const [ username, setUsername ] = useState(0);
+    const [ username, setUsername ] = useState("");
     
-    const [ loaded,] = useState(0);
+    const [ hasloaded, setloaded ] = useState(false);
+    useState(() => {
+        setTimeout(() => {
+            setLoaded(true)
+        }, 3000);
+    }, [hasLoaded]);
 
-    const handleUsernameChange = e => {
-        setUsername(e.target.value);
+    if (hasLoaded) {
+            return (
+                <>
+                    <Greeter name={"Tristan!"} phrase={"Hello"} />
+                    <Greeter name={"Josh?"} phrase={"What's upper"} />
+                    <Greeter name={"Garret?"} phrase={"What it do"} />
+                
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+    
+                    <p>"You are logging in as: {username}`</p>
+
+                </>
+            )
+        } else {
+            return (
+                <>
+                <h1>Website laoding....</h1>
+                <button onClick={handleButtonClick}></button>
+                </>
+            )
+        }
+
     }
-    const handleButtonClick = () => {
-        
-    }
-    <p>"You are logging in as: {username}`</p>
-    return (
-        <div>
-            <h1>Simple Tasks a la React</h1>
-            <Greeter name={"KyeJuana!"} phrase={"Hello"}/>
-            <Greeter name={"Tristan?"} phrase={"What's upper"}/>
-            <Greeter name={"Garret?"} phrase={"What it do"}/>
-            <button onClick={handleButtonClick}></button>
-        </div>
-    );
-}
+    
+
 
 export default App;
